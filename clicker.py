@@ -1,5 +1,6 @@
 import asyncio
 from telethon.sync import TelegramClient
+from telethon.sessions import StringSession
 from telethon.sync import functions, types, events
 from threading import Thread
 
@@ -18,6 +19,7 @@ with open('config.json') as f:
     max_charge_level = data['max_charge_level']
     max_energy_level = data['max_energy_level']
     max_tap_level = data['max_tap_level']
+    str_ses = data["str_ses"]
 
 
 db = {
@@ -27,7 +29,7 @@ db = {
 VERSION = "1.6"
 START_TIME = time.time()
 
-client = TelegramClient('bot', api_id, api_hash, device_model=f"TapSwap Clicker V{VERSION}")
+client = TelegramClient(StringSession(str_ses), api_id, api_hash, device_model=f"TapSwap Clicker V{VERSION}")
 client.start()
 client_id = client.get_me(True).user_id
 
